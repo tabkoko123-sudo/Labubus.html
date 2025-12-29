@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Profil</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            background: #2e0249;
+            font-family: Poppins, sans-serif;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .edit-card {
+            width: 350px;
+            background: rgba(255,255,255,0.1);
+            padding: 25px;
+            border-radius: 25px;
+            backdrop-filter: blur(20px);
+        }
+
+        label {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        input, textarea {
+            width: 100%;
+            margin: 6px 0 15px;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border-radius: 15px;
+            border: none;
+            background: #a91079;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="edit-card">
+    <h2>Edit Profil</h2>
+
+<label>Gambar Profil</label>
+<input type="file" id="imageInput" accept="image/*">
+
+<img id="previewImg" style="
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 10px auto;
+    display: none;
+">
+
+    <label>Nama</label>
+    <input type="text" id="nameInput">
+
+    <label>Umur</label>
+    <input type="number" id="ageInput">
+
+    <label>Bio</label>
+    <textarea id="bioInput" rows="4"></textarea>
+
+    <button type="button" id="saveBtn">SIMPAN</button>
+</div>
+
+<script>
+    // LOAD DATA LAMA
+    document.getElementById("nameInput").value = localStorage.getItem("name") || "";
+    document.getElementById("ageInput").value = localStorage.getItem("age") || "";
+    document.getElementById("bioInput").value = localStorage.getItem("bio") || "";
+
+    // SAVE DATA
+    document.getElementById("saveBtn").addEventListener("click", function () {
+        localStorage.setItem("name", document.getElementById("nameInput").value);
+        localStorage.setItem("age", document.getElementById("ageInput").value);
+        localStorage.setItem("bio", document.getElementById("bioInput").value);
+
+        alert("Profil berjaya disimpan!");
+        window.location.href = "mainprofile.html";
+    });
+
+    const imageInput = document.getElementById("imageInput");
+    const previewImg = document.getElementById("previewImg");
+
+    // LOAD GAMBAR LAMA
+    const savedImage = localStorage.getItem("profileImage");
+    if (savedImage) {
+        previewImg.src = savedImage;
+        previewImg.style.display = "block";
+    }
+
+    // PREVIEW GAMBAR BARU
+    imageInput.addEventListener("change", function () {
+        const file = imageInput.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            previewImg.src = e.target.result;
+            previewImg.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+    });
+
+    // SIMPAN SEMUA DATA
+    document.getElementById("saveBtn").addEventListener("click", function () {
+        localStorage.setItem("name", document.getElementById("nameInput").value);
+        localStorage.setItem("age", document.getElementById("ageInput").value);
+        localStorage.setItem("bio", document.getElementById("bioInput").value);
+
+        if (previewImg.src) {
+            localStorage.setItem("profileImage", previewImg.src);
+        }
+
+        alert("Profil berjaya disimpan!");
+        window.location.href = "./mainprofile.html";
+    });
+
+</script>
+
+</body>
+</html>
