@@ -1,2 +1,221 @@
-# Labubus.html
-Untuk preview kawan ii
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profil Utama - Purple Glass</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+:root {
+    --primary-purple: #a91079;
+    --accent-pink: #ff00cc;
+    --dark-bg: #2e0249;
+    --glass: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+}
+
+body {
+    background: linear-gradient(135deg, var(--dark-bg) 0%, #570a57 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+}
+
+.main-profile-card {
+    width: 380px;
+    background: var(--glass);
+    backdrop-filter: blur(25px);
+    border-radius: 35px;
+    border: 1px solid var(--glass-border);
+    overflow: hidden;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+    position: relative;
+}
+
+.profile-header {
+    height: 300px;
+    background: var(--dark-bg);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-header img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.profile-content {
+    padding: 25px;
+    position: relative;
+}
+
+.user-identity {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-identity h1 {
+    font-size: 28px;
+    margin: 0;
+}
+
+.gender-tag {
+    background: var(--accent-pink);
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+}
+
+.job-title {
+    color: #ccc;
+    font-size: 14px;
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.user-stats {
+    display: flex;
+    justify-content: space-around;
+    padding: 15px 0;
+    border-top: 1px solid var(--glass-border);
+    border-bottom: 1px solid var(--glass-border);
+    margin-bottom: 20px;
+}
+
+.stat-item { text-align: center; }
+.stat-value { font-weight: bold; font-size: 18px; }
+.stat-label { font-size: 10px; opacity: 0.6; }
+
+.info-section {
+    margin-bottom: 20px;
+}
+
+.section-label {
+    font-size: 12px;
+    color: var(--accent-pink);
+    font-weight: bold;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.bio-text {
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+.interest-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.interest-item {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid var(--glass-border);
+    padding: 6px 15px;
+    border-radius: 15px;
+    font-size: 12px;
+}
+
+.edit-profile-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    background: linear-gradient(45deg, var(--primary-purple), #6b0d47);
+    color: white;
+    padding: 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    margin-top: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="main-profile-card">
+    <div class="profile-header">
+        <img id="profileImage" alt="Profile Image">
+    </div>
+
+    <div class="profile-content">
+        <div class="user-identity">
+            <h1 id="profileName"></h1>
+            <span class="gender-tag">Wanita</span>
+        </div>
+
+        <div class="job-title">
+            <i class="fas fa-briefcase"></i> Senior UI/UX Designer di Tech Solution
+        </div>
+
+        <div class="user-stats">
+            <div class="stat-item">
+                <span class="stat-value">1.2k</span>
+                <span class="stat-label">Likes</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">85</span>
+                <span class="stat-label">Matches</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">4.9</span>
+                <span class="stat-label">Rating</span>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <span class="section-label">Tentang Saya</span>
+            <p class="bio-text" id="profileBio"></p>
+        </div>
+
+        <div class="info-section">
+            <span class="section-label">Minat</span>
+            <div class="interest-container">
+                <div class="interest-item"><i class="fas fa-camera"></i> Fotografi</div>
+                <div class="interest-item"><i class="fas fa-code"></i> Coding</div>
+                <div class="interest-item"><i class="fas fa-plane"></i> Travel</div>
+                <div class="interest-item"><i class="fas fa-music"></i> Muzik</div>
+            </div>
+        </div>
+
+        <a href="editsection.html" class="edit-profile-btn">
+            <i class="fas fa-user-edit"></i> EDIT PROFIL
+        </a>
+    </div>
+</div>
+
+<script>
+const name = localStorage.getItem("name") || "Farrah";
+const age = localStorage.getItem("age") || "24";
+const bio = localStorage.getItem("bio") || "Hanya seorang pencinta kopi...";
+const image = localStorage.getItem("profileImage");
+
+document.getElementById("profileName").innerText = name + ", " + age;
+document.getElementById("profileBio").innerText = bio;
+
+if(image) {
+    document.getElementById("profileImage").src = image;
+} else {
+    document.getElementById("profileImage").src = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=1000";
+}
+</script>
+
+</body>
+</html>
